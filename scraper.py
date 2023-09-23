@@ -1,22 +1,17 @@
-import configparser
 import json
 import time
 from datetime import datetime
 from pprint import pprint
 
-
 from bs4 import BeautifulSoup
 from selenium import webdriver
 
 
-config = configparser.ConfigParser()
-config.read("preferences.ini")
-
 options = webdriver.ChromeOptions()
 options.add_experimental_option("excludeSwitches", ["enable-logging"])
-options.add_argument("--headless=new")
-options.add_argument("--user-data-dir="+rf"{config['PREFERENCES']['UserDataDir']}")
-options.add_argument(rf"--profile-directory={config['PREFERENCES']['ProfileName']}")
+options.add_argument("--headless=new")  # use post development
+options.add_argument("--user-data-dir="+r"C:\Users\mudit\AppData\Local\Google\Chrome\User Data")
+options.add_argument("--profile-directory=Default")
 driver = webdriver.Chrome(options=options)
 
 
@@ -33,7 +28,7 @@ class Profile:
         self._load()
         self._parse()
 
-    def _load(self) -> None:
+    def _load(self):
         html = self.driver.page_source
         soup = BeautifulSoup(html, "lxml")
 
@@ -43,7 +38,7 @@ class Profile:
             self.data = json.loads(soup.find("script", attrs={"data-testid": "UserProfileSchema-test"}).text)
 
             tweets = soup.findAll("a", attrs={"class": "css-4rbku5 css-18t94o4 css-901oao r-1bwzh9t r-1loqt21 r-xoduu5 r-1q142lx r-1w6e6rj r-37j5jr r-a023e6 r-16dba41 r-9aw3ui r-rjixqe r-bcqeeo r-3s2u2q r-qvutc0"})
-            self.driver.execute_script("window.scrollTo(0, 2160)")
+            self.driver.execute_script("window.scrollTo(0, 3000)")
 
             for tweet in tweets:
                 link = fr"https://twitter.com{tweet.attrs['href']}"
@@ -89,7 +84,7 @@ class Profile:
         except AttributeError:
             print("Rate limited by Twitter")
 
-    def _parse(self) -> None:
+    def _parse(self):
         self.date_created = datetime.strptime(self.data["dateCreated"], "%Y-%m-%dT%H:%M:%S.%fZ") or None
         self.id = self.data["author"]["identifier"]
         self.given_name = self.data["author"]["givenName"] or None
@@ -101,10 +96,10 @@ class Profile:
         self.profile_image = self.data["author"]["image"]["contentUrl"] or None
         self.thumbnail_image = self.data["author"]["image"]["thumbnailUrl"] or None
 
-    def __repr__(self) -> str:
+    def __repr__(self):
         return f"<Profile username=_{self.username}_ date_created=_{self.date_created}_>"
 
-    def to_dict(self) -> dict:
+    def to_dict(self):
         return dict(
             verified=self.verified,
             id=self.id,
@@ -121,12 +116,3 @@ class Profile:
             thumbnail_image=self.thumbnail_image
         )
 
-
-# snu = Profile("shivnadaruniv")
-# print(snu.to_dict())
-# time.sleep(5)
-# dtele = Profile("dtele7")
-# pprint(dtele.to_dict())
-# time.sleep(5)
-# bill = Profile("dtele7")
-# pprint(bill.to_dict())
