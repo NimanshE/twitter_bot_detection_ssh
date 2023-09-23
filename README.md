@@ -6,7 +6,7 @@ Tool for detection of bots on X (formerly Twitter)
 2. Download chromedriver and add it to PATH
 3. Log in to twitter on default chrome profile
 4. Set preferences.ini as per your preference
-5. All instances of chrome must be killed before running (use taskkill /f /im chrome.exe
+5. All instances of chrome must be killed before running (use taskkill /f /im chrome.exe)
 
 
 - run server.py
