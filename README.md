@@ -7,11 +7,9 @@ Tool for detection of bots on X (formerly Twitter)
 3. Log in to twitter on default chrome profile
 4. Set preferences.ini as per your preference
 5. All instances of chrome must be killed before running (use taskkill /f /im chrome.exe)
-
-
-- run server.py
-- Start a local server and navigate to localhost:5500/frontend
-- Now the app can be used normally
+6. run server.py
+7. Start a local server and navigate to localhost:5500/frontend
+8. Now the app can be used normally
 
 ---
 
