@@ -15,7 +15,7 @@ Tool for detection of bots on X (formerly Twitter)
 
 ---
 
-Team Information:
+Team Information:  
 Name: Jain-Win  
-Members: Raj RS Bisen, Mudit Gupta, Dhruv Sharma, Diya Dugar, Arham Jain, Nimansh Endlay
+Members: Raj RS Bisen, Mudit Gupta, Dhruv Sharma, Diya Dugar, Arham Jain, Nimansh Endlay  
 *project created as part of Smart SNU Hackathon*
