@@ -1,17 +1,22 @@
+import configparser
 import json
 import time
 from datetime import datetime
 from pprint import pprint
 
+
 from bs4 import BeautifulSoup
 from selenium import webdriver
 
 
+config = configparser.ConfigParser()
+config.read("preferences.ini")
+
 options = webdriver.ChromeOptions()
 options.add_experimental_option("excludeSwitches", ["enable-logging"])
 options.add_argument("--headless=new")
-options.add_argument("--user-data-dir="+r"C:\Users\dhruv\AppData\Local\Google\Chrome\User Data")
-options.add_argument("--profile-directory=Default")
+options.add_argument("--user-data-dir="+rf"{config['PREFERENCES']['UserDataDir']}")
+options.add_argument(rf"--profile-directory={config['PREFERENCES']['ProfileName']}")
 driver = webdriver.Chrome(options=options)
 
 
